@@ -37,11 +37,26 @@ describe KueStore do
     KueStore.delete!(:non_existant).should be_false
   end
   
-  it 'should be able to list all keys' do
+  it 'should list all keys' do
     KueStore[:k1] = 1
     KueStore[:k2] = 2
     KueStore[:k3] = 3
     KueStore.keys.should == [:k1, :k2, :k3]
+  end
+  
+  it 'should clear the store' do
+    KueStore[:k1] = 1
+    KueStore[:k2] = 2
+    KueStore[:k3] = 3
+    KueStore.clear!
+    KueStore.keys.should be_empty
+  end
+  
+  it 'should count all items in the store' do
+    KueStore[:k1] = 1
+    KueStore[:k2] = 2
+    KueStore[:k3] = 3
+    KueStore.count.should == 3
   end
   
 end

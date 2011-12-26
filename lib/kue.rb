@@ -40,6 +40,10 @@ module Kue
       def exists?(key)
         !self[key].nil?
       end
+      
+      def clear!
+        KueStore.destroy_all
+      end
     end
   end
 end

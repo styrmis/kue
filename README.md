@@ -60,6 +60,18 @@ List all the keys in the KueStore
 KueStore.keys
 ```
 
+Clear all keys and values from the KueStore
+
+```ruby
+KueStore.clear!
+```
+
+Get a count of all the key/value pairs
+
+```ruby
+KueStore.count
+```
+
 ###Don't Like The KueStore Class Name?
 
 No problem. Just include the Kue::Store module inside of your own class.
