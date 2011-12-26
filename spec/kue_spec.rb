@@ -43,4 +43,16 @@ describe KueStore do
     KueStore[:k3] = 3
     KueStore.keys.should == [:k1, :k2, :k3]
   end
+  
+end
+
+describe 'Using Kue::Store outside of the KueStore class - introducing BlueStore!' do
+  class BlueStore < ActiveRecord::Base
+    include Kue::Store
+  end
+  
+  it 'should be able to be used as a kue store' do
+    BlueStore[:ok] = "One"
+    BlueStore[:ok].should == "One"
+  end
 end

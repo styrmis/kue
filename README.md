@@ -60,3 +60,16 @@ List all the keys in the KueStore
 KueStore.keys
 ```
 
+###Don't Like The KueStore Class Name?
+
+No problem. Just include the Kue::Store module inside of your own class.
+
+```
+class MyStore < ActiveRecord::Base
+  include Kue::Store
+end
+
+MyStore[:all_good] = 1
+```
+
+

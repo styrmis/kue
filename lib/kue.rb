@@ -1,39 +1,49 @@
 require "kue/version"
 
-class KueStore < ActiveRecord::Base
-  set_table_name :kue_settings
-  set_primary_key :key
-     
-  def self.keys
-    KueStore.all.map(&:key).map(&:to_sym)
-  end
-  
-  def self.[](key)
-    begin
-      entry = KueStore.find(key)
-      YAML.load(entry.value)
-    rescue ActiveRecord::RecordNotFound
-      return nil
+module Kue
+  module Store
+    def self.included(base)
+      base.send :extend, ClassMethods
+      base.send :set_table_name, :kue_settings
+      base.send :set_primary_key, :key
     end
-  end
+  
+    module ClassMethods         
+      def keys
+        KueStore.all.map(&:key).map(&:to_sym)
+      end
+  
+      def [](key)
+        begin
+          entry = KueStore.find(key)
+          YAML.load(entry.value)
+        rescue ActiveRecord::RecordNotFound
+          return nil
+        end
+      end
        
-  def self.[]=(key, value)
-    setting = KueStore.find_or_create_by_key(key)
-    setting.value = value.to_yaml
-    setting.save!
-  end
+      def []=(key, value)
+        setting = KueStore.find_or_create_by_key(key)
+        setting.value = value.to_yaml
+        setting.save!
+      end
   
-  def self.delete!(key)
-    begin
-      entry = KueStore.find(key)
-      entry.destroy
-    rescue ActiveRecord::RecordNotFound
-      return false
+      def delete!(key)
+        begin
+          entry = KueStore.find(key)
+          entry.destroy
+        rescue ActiveRecord::RecordNotFound
+          return false
+        end
+      end
+  
+      def exists?(key)
+        !self[key].nil?
+      end
     end
-  end
-  
-  def self.exists?(key)
-    !self[key].nil?
   end
 end
 
+class KueStore < ActiveRecord::Base
+  include Kue::Store
+end
