@@ -72,7 +72,7 @@ Get a count of all the key/value pairs
 KueStore.count
 ```
 
-###Don't Like The KueStore Class Name?
+###Don't like the KueStore class name?
 
 No problem. Just include the Kue::Store module inside of your own class.
 
