@@ -44,8 +44,8 @@ Find out if a key exists?
 KueStore.exists?(:my_class_instance)
 ```
 
+Delete a key and it's value
 
-### WTF dude there are no spec's?!?
-Yep! This has been extracted out of one of my production applications that does have specs! 
-Don't have the time to setup all the tests and specs for kue. 
-I will merge a nice pull request though!
+```ruby
+KueStore.delete!(:my_class_instance)
+```

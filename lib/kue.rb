@@ -19,6 +19,15 @@ class KueStore < ActiveRecord::Base
     setting.save!
   end
   
+  def self.delete!(key)
+    begin
+      entry = KueStore.find(key)
+      entry.destroy
+    rescue ActiveRecord::RecordNotFound
+      return false
+    end
+  end
+  
   def self.exists?(key)
     !self[key].nil?
   end

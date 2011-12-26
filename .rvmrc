@@ -1,1 +1,1 @@
-rvm --create use ruby-1.9.3@kue
+rvm use ruby-1.9.3@kue --create
