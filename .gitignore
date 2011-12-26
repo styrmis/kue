@@ -3,3 +3,6 @@
 Gemfile.lock
 pkg/*
 test_app/*
+*.swp
+*.swo
+*.log
