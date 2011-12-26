@@ -53,3 +53,10 @@ Delete a key and it's value
 ```ruby
 KueStore.delete!(:my_class_instance)
 ```
+
+List all the keys in the KueStore
+
+```ruby
+KueStore.keys
+```
+

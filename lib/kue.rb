@@ -4,6 +4,10 @@ class KueStore < ActiveRecord::Base
   set_table_name :kue_settings
   set_primary_key :key
      
+  def self.keys
+    KueStore.all.map(&:key).map(&:to_sym)
+  end
+  
   def self.[](key)
     begin
       entry = KueStore.find(key)

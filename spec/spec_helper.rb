@@ -31,3 +31,9 @@ end
 
 #Run the migration
 KueSettingsTableCreateMigration.new.up
+
+RSpec.configure do |configuration|
+  configuration.after(:each) do
+    KueStore.destroy_all
+  end
+end

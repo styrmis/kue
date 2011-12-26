@@ -36,4 +36,11 @@ describe KueStore do
   it 'should not throw an error when deleting a key that does not exist' do
     KueStore.delete!(:non_existant).should be_false
   end
+  
+  it 'should be able to list all keys' do
+    KueStore[:k1] = 1
+    KueStore[:k2] = 2
+    KueStore[:k3] = 3
+    KueStore.keys.should == [:k1, :k2, :k3]
+  end
 end
