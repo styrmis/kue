@@ -64,7 +64,7 @@ KueStore.keys
 
 No problem. Just include the Kue::Store module inside of your own class.
 
-```
+```ruby
 class MyStore < ActiveRecord::Base
   include Kue::Store
 end
