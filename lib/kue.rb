@@ -14,12 +14,8 @@ module Kue
       end
   
       def [](key)
-        begin
-          entry = KueStore.find(key)
-          YAML.load(entry.value)
-        rescue ActiveRecord::RecordNotFound
-          return nil
-        end
+        entry = KueStore.find_by_key(key)
+        entry ? YAML.load(entry.value) : nil
       end
        
       def []=(key, value)
@@ -29,16 +25,11 @@ module Kue
       end
   
       def delete!(key)
-        begin
-          entry = KueStore.find(key)
-          entry.destroy
-        rescue ActiveRecord::RecordNotFound
-          return false
-        end
+        KueStore.delete_all(:key => key)
       end
   
       def exists?(key)
-        !self[key].nil?
+        self[key].present?
       end
       
       def clear!

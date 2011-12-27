@@ -34,7 +34,7 @@ describe KueStore do
   end
   
   it 'should not throw an error when deleting a key that does not exist' do
-    KueStore.delete!(:non_existant).should be_false
+    proc { KueStore.delete!(:non_existant) }.should_not raise_error
   end
   
   it 'should list all keys' do
