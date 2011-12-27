@@ -59,6 +59,13 @@ describe KueStore do
     KueStore.count.should == 3
   end
   
+  it 'should fail hard if a nil key is passed to []=' do
+    proc { KueStore[nil] = 1 }.should raise_error(Kue::KueNilKeyError)
+  end
+  
+  it 'should return nil if a nil key is passed to []' do
+    KueStore[nil].should be_nil
+  end
 end
 
 describe 'Using Kue::Store outside of the KueStore class - introducing BlueStore!' do

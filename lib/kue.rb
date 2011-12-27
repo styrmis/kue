@@ -1,6 +1,7 @@
 require "kue/version"
 
 module Kue
+  class KueNilKeyError < StandardError; end
   module Store
     def self.included(base)
       base.send :extend, ClassMethods
@@ -19,6 +20,8 @@ module Kue
       end
        
       def []=(key, value)
+        raise KueNilKeyError if key.nil?
+        
         setting = KueStore.find_or_create_by_key(key)
         setting.value = value.to_yaml
         setting.save!
