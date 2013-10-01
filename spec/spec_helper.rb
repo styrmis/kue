@@ -24,10 +24,8 @@ ActiveRecord::Base.establish_connection(active_record_configuration)
 ActiveRecord::Base.logger = Logger.new(File.join(File.dirname(__FILE__), "debug.log"))
 ActiveRecord::Base.default_timezone = :utc
 
-ActiveRecord::Base.silence do
-  ActiveRecord::Migration.verbose = false
-  load(File.expand_path('../../lib/generators/kue/install/templates/migration.rb', __FILE__))
-end
+ActiveRecord::Migration.verbose = false
+load(File.expand_path('../../lib/generators/kue/install/templates/migration.rb', __FILE__))
 
 #Run the migration
 KueSettingsTableCreateMigration.new.up
