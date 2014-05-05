@@ -19,7 +19,7 @@ require File.expand_path('../../lib/kue', __FILE__)
 active_record_configuration = YAML.load_file(File.expand_path('../config/database.yml', __FILE__))
 
 ActiveRecord::Base.configurations = active_record_configuration
-ActiveRecord::Base.establish_connection(active_record_configuration)
+ActiveRecord::Base.establish_connection(:sqlite3)
 
 ActiveRecord::Base.logger = Logger.new(File.join(File.dirname(__FILE__), "debug.log"))
 ActiveRecord::Base.default_timezone = :utc
